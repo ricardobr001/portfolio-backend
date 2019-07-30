@@ -7,7 +7,7 @@ class LastFM {
         this._api = axios.create({ baseURL: lastConfig.BASE_URL })
     }
 
-    async topArtists () {
+    async topArtists (len) {
         const res = await this._api.get(
             `/?method=user.gettopartists&` +
                 `user=${lastConfig.USER}&` +
@@ -23,7 +23,7 @@ class LastFM {
         }, [])
 
         shuffle(array)
-        return array.slice(0, 3)
+        return array.slice(0, len)
     }
 }
 

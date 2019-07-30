@@ -10,6 +10,9 @@ routes.get(
     })
 )
 
-routes.get('/lastTopArtists', handle(controllers.LastController.topArtists))
+routes.get(
+    '/lastTopArtists/:length',
+    handle(controllers.LastController.topArtists)
+)
 
 module.exports = routes
