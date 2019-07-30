@@ -1,10 +1,13 @@
+require('dotenv').config()
+
 const express = require('express')
 const routes = require('./routes')
 const Youch = require('youch')
+const validate = require('express-validation')
 
 class App {
     constructor () {
-        this.express = new express()
+        this.express = express()
 
         this.routes()
         this.exception()
