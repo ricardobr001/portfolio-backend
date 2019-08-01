@@ -35,7 +35,7 @@ class LastFM {
         )
 
         return {
-            song: res.data.recenttracks.track[0].name,
+            name: res.data.recenttracks.track[0].name,
             image: res.data.recenttracks.track[0].image[3]['#text'],
             artist: res.data.recenttracks.track[0].artist['#text'],
             listening: !!res.data.recenttracks.track[0]['@attr'],

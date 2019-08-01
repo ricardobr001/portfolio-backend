@@ -1,6 +1,7 @@
 const lastService = require('../services/Last')
 const MusicService = require('../services/MusicBrainz')
 const FanArtService = require('../services/FanArtTV')
+const GeniusService = require('../services/Genius')
 const Q = require('q')
 
 class LastController {
@@ -29,6 +30,8 @@ class LastController {
 
     async lastSong (req, res) {
         const song = await lastService.lastSong()
+        const lyric = await GeniusService.searchUrl(song.artist, song.name)
+        song.lyric = lyric
 
         res.send(song)
     }
