@@ -15,4 +15,6 @@ routes.get(
     handle(controllers.LastController.topArtists)
 )
 
+routes.get('/lastSong', handle(controllers.LastController.lastSong))
+
 module.exports = routes

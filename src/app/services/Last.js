@@ -19,11 +19,28 @@ class LastFM {
         const array = res.data.topartists.artist.reduce((acc, curr) => {
             const { mbid, playcount, name } = curr
 
-            return [...acc, { mbid, playcount, name, image: '' }]
+            return [...acc, { mbid, playcount: +playcount, name, image: '' }]
         }, [])
 
         shuffle(array)
         return array.slice(0, len)
+    }
+
+    async lastSong () {
+        const res = await this._api.get(
+            `/?method=user.getrecenttracks&` +
+                `user=${lastConfig.USER}&` +
+                `api_key=${lastConfig.API_KEY}&` +
+                `format=json`
+        )
+
+        return {
+            song: res.data.recenttracks.track[0].name,
+            image: res.data.recenttracks.track[0].image[3]['#text'],
+            artist: res.data.recenttracks.track[0].artist['#text'],
+            listening: !!res.data.recenttracks.track[0]['@attr'],
+            totalScrobble: +res.data.recenttracks['@attr'].total
+        }
     }
 }
 

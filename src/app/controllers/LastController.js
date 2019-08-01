@@ -26,6 +26,12 @@ class LastController {
 
         res.send(artists)
     }
+
+    async lastSong (req, res) {
+        const song = await lastService.lastSong()
+
+        res.send(song)
+    }
 }
 
 module.exports = new LastController()
