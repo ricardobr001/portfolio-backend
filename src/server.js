@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const cors = require('cors')
 const routes = require('./routes')
 const Youch = require('youch')
 const validate = require('express-validation')
@@ -9,8 +10,13 @@ class App {
     constructor () {
         this.express = express()
 
+        this.middlewares()
         this.routes()
         this.exception()
+    }
+
+    middlewares () {
+        this.express.use(cors())
     }
 
     routes () {
