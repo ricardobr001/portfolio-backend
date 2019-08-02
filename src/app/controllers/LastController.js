@@ -6,7 +6,7 @@ const Q = require('q')
 
 class LastController {
     async topArtists (req, res) {
-        const artists = await lastService.topArtists(req.params.length)
+        const artists = await lastService.topArtists(3)
 
         for (const x of artists) {
             if (x.mbid === '') {
@@ -17,8 +17,7 @@ class LastController {
         const pictures = await Q.all([
             FanArtService.recoverImage(artists[0].mbid),
             FanArtService.recoverImage(artists[1].mbid),
-            FanArtService.recoverImage(artists[2].mbid),
-            FanArtService.recoverImage(artists[3].mbid)
+            FanArtService.recoverImage(artists[2].mbid)
         ])
 
         pictures.forEach((x, i) => {
