@@ -1,6 +1,7 @@
 const axios = require('axios')
 const geniusConfig = require('../config/Genius')
 const Lyricist = require('lyricist')
+const treatSong = require('../utils/TreatSong')
 
 class Genius {
     constructor () {
@@ -16,11 +17,7 @@ class Genius {
                 `access_token=${geniusConfig.ACCESS_TOKEN}`
         )
 
-        const founded = res.data.response.hits.filter(
-            x =>
-                x.result.primary_artist.name.toLowerCase() === artist &&
-                x.result.title.toLowerCase() === song
-        )
+        const founded = treatSong(res.data.response.hits, song, artist)
 
         if (founded.length > 0) {
             const res = await this._lyricist.song(founded[0].result.id, {
