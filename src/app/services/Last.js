@@ -35,9 +35,9 @@ class LastFM {
         )
 
         return {
-            name: res.data.recenttracks.track[0].name,
+            name: res.data.recenttracks.track[0].name.toLowerCase(),
             image: res.data.recenttracks.track[0].image[3]['#text'],
-            artist: res.data.recenttracks.track[0].artist['#text'],
+            artist: res.data.recenttracks.track[0].artist['#text'].toLowerCase(),
             listening: !!res.data.recenttracks.track[0]['@attr'],
             totalScrobble: +res.data.recenttracks['@attr'].total
         }

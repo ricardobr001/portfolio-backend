@@ -9,15 +9,17 @@ class Genius {
     }
 
     async searchUrl (artist, song) {
+        const auxArtist = encodeURIComponent(artist)
+        const auxSong = encodeURIComponent(song)
         const res = await this._api.get(
-            `/search?q=${artist}& ${song}&` +
+            `/search?q=${auxArtist}& ${auxSong}&` +
                 `access_token=${geniusConfig.ACCESS_TOKEN}`
         )
 
         const founded = res.data.response.hits.filter(
             x =>
-                x.result.primary_artist.name === artist &&
-                x.result.title === song
+                x.result.primary_artist.name.toLowerCase() === artist &&
+                x.result.title.toLowerCase() === song
         )
 
         if (founded.length > 0) {
