@@ -29,7 +29,10 @@ class LastController {
 
     async lastSong (req, res) {
         const song = await lastService.lastSong()
-        const lyric = await GeniusService.searchUrl(song.artist, song.name)
+        const lyric = await GeniusService.searchUrl(
+            song.artist.toLowerCase(),
+            song.name.toLowerCase()
+        )
         song.lyric = lyric
 
         res.send(song)
