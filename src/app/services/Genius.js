@@ -12,7 +12,7 @@ class Genius {
         const auxArtist = encodeURIComponent(artist)
         const auxSong = encodeURIComponent(song)
         const res = await this._api.get(
-            `/search?q=${auxArtist}& ${auxSong}&` +
+            `/search?q=${auxSong}& ${auxArtist}&` +
                 `access_token=${geniusConfig.ACCESS_TOKEN}`
         )
 
