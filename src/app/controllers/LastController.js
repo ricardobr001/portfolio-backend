@@ -5,7 +5,7 @@ const GeniusService = require('../services/Genius')
 const Q = require('q')
 
 class LastController {
-    async topArtists (req, res) {
+    async topArtists(req, res) {
         const artists = await lastService.topArtists(3)
 
         for (const x of artists) {
@@ -27,15 +27,21 @@ class LastController {
         res.send(artists)
     }
 
-    async lastSong (req, res) {
+    async lastSong(req, res) {
         const song = await lastService.lastSong()
-        const lyric = await GeniusService.searchUrl(
-            song.artist.toLowerCase(),
-            song.name.toLowerCase()
-        )
+        const lyric = await GeniusService.searchUrl(song.artist.toLowerCase(), song.name.toLowerCase())
         song.lyric = lyric
 
         res.send(song)
+    }
+
+    async lastGraphic(req, res) {
+        const { len } = req.params
+
+        const artists = await lastService.myInfo(len)
+        const result = await lastService.artistsInfoBetweenPeriods(artists)
+
+        res.send(result)
     }
 }
 

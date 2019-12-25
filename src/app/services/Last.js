@@ -1,13 +1,15 @@
 const axios = require('axios')
 const lastConfig = require('../config/LastFM')
 const shuffle = require('../utils/Shuffle')
+const arrayWeeklyArtistsEndpoints = require('../utils/ArrayWeeklyArtistsEndpoints')
+const initializeArtistsArrayOnPeriod = require('../utils/InitializeArtistsArrayOnPeriod')
 
 class LastFM {
-    constructor () {
+    constructor() {
         this._api = axios.create({ baseURL: lastConfig.BASE_URL })
     }
 
-    async topArtists (len) {
+    async topArtists(len) {
         const res = await this._api.get(
             `/?method=user.gettopartists&` +
                 `user=${lastConfig.USER}&` +
@@ -26,7 +28,7 @@ class LastFM {
         return array.slice(0, len)
     }
 
-    async lastSong () {
+    async lastSong() {
         const res = await this._api.get(
             `/?method=user.getrecenttracks&` +
                 `user=${lastConfig.USER}&` +
@@ -41,6 +43,60 @@ class LastFM {
             listening: !!res.data.recenttracks.track[0]['@attr'],
             totalScrobble: +res.data.recenttracks['@attr'].total
         }
+    }
+
+    async myInfo(len) {
+        const res = await this._api.get(
+            `/?method=user.gettopartists&` +
+                `user=${lastConfig.USER}&` +
+                `api_key=${lastConfig.API_KEY}&` +
+                `limit=${len}&` +
+                `format=json`
+        )
+
+        return res.data.topartists.artist.reduce((acc, curr) => {
+            const { name } = curr
+
+            return [...acc, name]
+        }, [])
+    }
+
+    async artistsInfoBetweenPeriods(artists) {
+        const endpoints = arrayWeeklyArtistsEndpoints()
+
+        const res = await Promise.all(
+            endpoints.map(async endpoint => {
+                const result = await this._api.get(endpoint)
+
+                return result.data
+            })
+        )
+
+        const artistsInfoOnPeriods = initializeArtistsArrayOnPeriod(artists)
+
+        res.map(artistOnPeriod => {
+            artists.map((artist, index) => {
+                const founded = artistOnPeriod.weeklyartistchart.artist.filter(obj => obj.name === artist)
+                const len = artistsInfoOnPeriods[index].length - 1
+
+                if (founded.length) {
+                    artistsInfoOnPeriods[index].push({
+                        period: parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10),
+                        artist,
+                        scrobbleCount:
+                            artistsInfoOnPeriods[index][len].scrobbleCount + parseInt(founded[0].playcount, 10)
+                    })
+                } else {
+                    artistsInfoOnPeriods[index].push({
+                        period: parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10),
+                        artist,
+                        scrobbleCount: artistsInfoOnPeriods[index][len].scrobbleCount
+                    })
+                }
+            })
+        })
+
+        return artistsInfoOnPeriods
     }
 }
 
