@@ -44,3 +44,35 @@ At the moment returning an array with 3 artists
     }
 ]
 ```
+
+- [GET] **/graphicInfo/:numberOfArtists**
+### Response example
+
+Example for 2 artists with only 2 periods
+```JSON
+[
+    [
+        {
+            "period": 1510884000,
+            "artist": "Slipknot",
+            "scrobbleCount": 0
+        },
+        {
+            "period": 1511488800,
+            "artist": "Slipknot",
+            "scrobbleCount": 11
+        }
+    ],
+    [
+        {
+            "period": 1510884000,
+            "artist": "Linkin Park",
+            "scrobbleCount": 0
+        },
+        {
+            "period": 1511488800,
+            "artist": "Linkin Park",
+            "scrobbleCount": 20
+        }
+    ]
+]
