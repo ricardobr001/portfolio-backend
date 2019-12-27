@@ -57,26 +57,22 @@ Example for 2 artists with only 2 periods
         1512093600
     ],
     "series": [
-        [
-            {
-                "name": "Slipknot",
-                "data": [
-                    0,
-                    11,
-                    17
-                ]
-            }
-        ],
-        [
-            {
-                "name": "Linkin Park",
-                "data": [
-                    0,
-                    20,
-                    32
-                ]
-            }
-        ]
+        {
+            "name": "Slipknot",
+            "data": [
+                0,
+                11,
+                17
+            ]
+        },
+        {
+            "name": "Linkin Park",
+            "data": [
+                0,
+                20,
+                32
+            ]
+        }
     ]
 }
 ```
