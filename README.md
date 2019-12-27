@@ -1,6 +1,6 @@
 # Backend for my portfolio
 
-This is going to be the backend for my [portfolio](https://ricardobr001.github.io/).  
+This is going to be the backend for my [portfolio](https://ricardobr001.github.io/).
 Deployed in heroku with https://ricardobr001-backend.herokuapp.com.
 
 # Endpoints
@@ -50,29 +50,33 @@ At the moment returning an array with 3 artists
 
 Example for 2 artists with only 2 periods
 ```JSON
-[
-    [
-        {
-            "period": 1510884000,
-            "artist": "Slipknot",
-            "scrobbleCount": 0
-        },
-        {
-            "period": 1511488800,
-            "artist": "Slipknot",
-            "scrobbleCount": 11
-        }
+{
+    "periods": [
+        1510884000,
+        1511488800,
+        1512093600
     ],
-    [
-        {
-            "period": 1510884000,
-            "artist": "Linkin Park",
-            "scrobbleCount": 0
-        },
-        {
-            "period": 1511488800,
-            "artist": "Linkin Park",
-            "scrobbleCount": 20
-        }
+    "series": [
+        [
+            {
+                "name": "Slipknot",
+                "data": [
+                    0,
+                    11,
+                    17
+                ]
+            }
+        ],
+        [
+            {
+                "name": "Linkin Park",
+                "data": [
+                    0,
+                    20,
+                    32
+                ]
+            }
+        ]
     ]
-]
+}
+```

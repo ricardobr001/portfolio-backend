@@ -73,30 +73,27 @@ class LastFM {
         )
 
         const artistsInfoOnPeriods = initializeArtistsArrayOnPeriod(artists)
+        const periods = [1510884000]
 
         res.map(artistOnPeriod => {
             artists.map((artist, index) => {
                 const founded = artistOnPeriod.weeklyartistchart.artist.filter(obj => obj.name === artist)
-                const len = artistsInfoOnPeriods[index].length - 1
+                const len = artistsInfoOnPeriods[index][0].data.length - 1
 
                 if (founded.length) {
-                    artistsInfoOnPeriods[index].push({
-                        period: parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10),
-                        artist,
-                        scrobbleCount:
-                            artistsInfoOnPeriods[index][len].scrobbleCount + parseInt(founded[0].playcount, 10)
-                    })
+                    artistsInfoOnPeriods[index][0].data.push(
+                        artistsInfoOnPeriods[index][0].data[len] + parseInt(founded[0].playcount, 10)
+                    )
                 } else {
-                    artistsInfoOnPeriods[index].push({
-                        period: parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10),
-                        artist,
-                        scrobbleCount: artistsInfoOnPeriods[index][len].scrobbleCount
-                    })
+                    artistsInfoOnPeriods[index][0].data.push(artistsInfoOnPeriods[index][0].data[len])
                 }
             })
+
+            const period = parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10)
+            periods.push(period)
         })
 
-        return artistsInfoOnPeriods
+        return { periods, series: artistsInfoOnPeriods }
     }
 }
 
