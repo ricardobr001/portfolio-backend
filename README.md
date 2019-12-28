@@ -57,11 +57,11 @@ Example for 2 artists with only 2 periods
             "name": "Slipknot",
             "data": [
                 [
-                    "17-11-2017",
-                    0
+                    1510884000000, // unixTimestamp multiplied by 1000
+                    0 // counter of the band on that moment
                 ],
                 [
-                    "24-11-2017",
+                    1511488800000,
                     11
                 ]
             ]
@@ -70,11 +70,11 @@ Example for 2 artists with only 2 periods
             "name": "Linkin Park",
             "data": [
                 [
-                   "17-11-2017",
+                    1510884000000,
                     0
                 ],
                 [
-                    "24-11-2017",
+                    1511488800000,
                     20
                 ]
             ],

@@ -1,7 +1,7 @@
-const moment = require('moment')
+// const moment = require('moment')
 
 module.exports = artists => {
     return artists.map(artist => {
-        return { name: artist, data: [[moment.unix(1510884000).format('DD-MM-YYYY'), 0]] }
+        return { name: artist, data: [[1510884000000, 0]] }
     })
 }

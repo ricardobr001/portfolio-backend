@@ -81,11 +81,11 @@ class LastFM {
             artists.map((artist, index) => {
                 const founded = artistOnPeriod.weeklyartistchart.artist.filter(obj => obj.name === artist)
                 const len = artistsInfoOnPeriods[index].data.length - 1
-                const timestamp = parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10)
+                const timestamp = parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10) * 1000
 
                 if (founded.length) {
                     const newData = [
-                        moment.unix(timestamp).format('DD-MM-YYYY'),
+                        timestamp,
                         artistsInfoOnPeriods[index].data[len][1] + parseInt(founded[0].playcount, 10)
                     ]
 
@@ -95,10 +95,7 @@ class LastFM {
                         maxScrobble = artistsInfoOnPeriods[index].data[len][1]
                     }
                 } else {
-                    const newData = [
-                        moment.unix(timestamp).format('DD-MM-YYYY'),
-                        artistsInfoOnPeriods[index].data[len][1]
-                    ]
+                    const newData = [timestamp, artistsInfoOnPeriods[index].data[len][1]]
 
                     artistsInfoOnPeriods[index].data.push(newData)
                 }
