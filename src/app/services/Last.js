@@ -1,4 +1,6 @@
 const axios = require('axios')
+const moment = require('moment')
+
 const lastConfig = require('../config/LastFM')
 const shuffle = require('../utils/Shuffle')
 const arrayWeeklyArtistsEndpoints = require('../utils/ArrayWeeklyArtistsEndpoints')
@@ -73,32 +75,37 @@ class LastFM {
         )
 
         const artistsInfoOnPeriods = initializeArtistsArrayOnPeriod(artists)
-        const periods = [1510884000]
         let maxScrobble = 0
 
         res.map(artistOnPeriod => {
             artists.map((artist, index) => {
                 const founded = artistOnPeriod.weeklyartistchart.artist.filter(obj => obj.name === artist)
                 const len = artistsInfoOnPeriods[index].data.length - 1
+                const timestamp = parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10)
 
                 if (founded.length) {
-                    artistsInfoOnPeriods[index].data.push(
-                        artistsInfoOnPeriods[index].data[len] + parseInt(founded[0].playcount, 10)
-                    )
+                    const newData = [
+                        moment.unix(timestamp).format('DD-MM-YYYY'),
+                        artistsInfoOnPeriods[index].data[len][1] + parseInt(founded[0].playcount, 10)
+                    ]
 
-                    if (artistsInfoOnPeriods[index].data[len] > maxScrobble) {
-                        maxScrobble = artistsInfoOnPeriods[index].data[len]
+                    artistsInfoOnPeriods[index].data.push(newData)
+
+                    if (artistsInfoOnPeriods[index].data[len][1] > maxScrobble) {
+                        maxScrobble = artistsInfoOnPeriods[index].data[len][1]
                     }
                 } else {
-                    artistsInfoOnPeriods[index].data.push(artistsInfoOnPeriods[index].data[len])
+                    const newData = [
+                        moment.unix(timestamp).format('DD-MM-YYYY'),
+                        artistsInfoOnPeriods[index].data[len][1]
+                    ]
+
+                    artistsInfoOnPeriods[index].data.push(newData)
                 }
             })
-
-            const period = parseInt(artistOnPeriod.weeklyartistchart['@attr'].to, 10)
-            periods.push(period)
         })
 
-        return { maxScrobble, periods, series: artistsInfoOnPeriods }
+        return { maxScrobble, series: artistsInfoOnPeriods }
     }
 }
 

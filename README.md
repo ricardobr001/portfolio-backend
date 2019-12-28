@@ -51,27 +51,33 @@ At the moment returning an array with 3 artists
 Example for 2 artists with only 2 periods
 ```JSON
 {
-    "periods": [
-        1510884000,
-        1511488800,
-        1512093600
-    ],
-    "series": [
+  "maxScrobble": 3619,
+  "series": [
         {
             "name": "Slipknot",
             "data": [
-                0,
-                11,
-                17
+                [
+                    "17-11-2017",
+                    0
+                ],
+                [
+                    "24-11-2017",
+                    11
+                ]
             ]
-        },
+        }
         {
             "name": "Linkin Park",
             "data": [
-                0,
-                20,
-                32
-            ]
+                [
+                   "17-11-2017",
+                    0
+                ],
+                [
+                    "24-11-2017",
+                    20
+                ]
+            ],
         }
     ]
 }
