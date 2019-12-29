@@ -49,7 +49,7 @@ At the moment returning an array with 3 artists
 ### Response example
 
 Example for 2 artists with only 2 periods
-```JSON
+```JS
 {
   "maxScrobble": 3619,
   "series": [
