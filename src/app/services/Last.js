@@ -1,5 +1,4 @@
 const axios = require('axios')
-const moment = require('moment')
 
 const lastConfig = require('../config/LastFM')
 const shuffle = require('../utils/Shuffle')

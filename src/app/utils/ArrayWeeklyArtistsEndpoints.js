@@ -1,5 +1,6 @@
+const constants = require('../global/constants')
 const lastConfig = require('../config/LastFM')
-const moment = require('moment')
+const dayjs = require('dayjs')
 
 module.exports = () => {
     const endpoint =
@@ -7,11 +8,11 @@ module.exports = () => {
         `user=${lastConfig.USER}&` +
         `api_key=${lastConfig.API_KEY}&` +
         `format=json&`
-    const interval = 604800
+    const interval = constants.INTERVAL_IN_SECONDS_FOR_GRAPHIC_INFO
     const array = []
-    const actualMoment = moment().unix()
+    const actualMoment = dayjs().unix()
 
-    let initialTime = 1510884000
+    let initialTime = constants.INITIAL_UNIX_TIMESTAMP_GRAPHIC_INFO_IN_SECONDS
     let endTime = initialTime + interval
 
     while (endTime < actualMoment) {

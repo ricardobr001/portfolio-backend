@@ -8,15 +8,15 @@
         "start-dev": "nodemon src/index.js -e js"
     },
     "dependencies": {
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "cors": "^2.8.5",
+        "dayjs": "^1.10.5",
         "dotenv": "^8.0.0",
         "express": "^4.17.1",
         "express-async-handler": "^1.1.4",
         "express-validation": "^1.0.2",
         "joi": "^14.3.1",
         "lyricist": "^2.2.2",
-        "moment": "^2.24.0",
         "q": "^1.5.1",
         "require-dir": "^1.2.0",
         "youch": "^2.0.10"
