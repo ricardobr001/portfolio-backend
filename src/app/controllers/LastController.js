@@ -2,7 +2,6 @@ const lastService = require('../services/Last')
 const MusicService = require('../services/MusicBrainz')
 const FanArtService = require('../services/FanArtTV')
 const GeniusService = require('../services/Genius')
-const Q = require('q')
 
 class LastController {
     async topArtists(req, res) {
@@ -14,7 +13,7 @@ class LastController {
             }
         }
 
-        const pictures = await Q.all([
+        const pictures = await Promise.all([
             FanArtService.recoverImage(artists[0].mbid),
             FanArtService.recoverImage(artists[1].mbid),
             FanArtService.recoverImage(artists[2].mbid)
