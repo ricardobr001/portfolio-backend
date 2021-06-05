@@ -34,6 +34,14 @@ class LastController {
         res.send(song)
     }
 
+    async lastSongWithUrl(req, res) {
+        const song = await lastService.lastSong()
+        const url = await GeniusService.getLyricUrl(song.artist.toLowerCase(), song.name.toLowerCase())
+        song.url = url
+
+        res.send(song)
+    }
+
     async lastGraphic(req, res) {
         const { len } = req.params
 
