@@ -26,14 +26,6 @@ class LastController {
         res.send(artists)
     }
 
-    async lastSong(req, res) {
-        const song = await lastService.lastSong()
-        const lyric = await GeniusService.searchUrl(song.artist.toLowerCase(), song.name.toLowerCase())
-        song.lyric = lyric
-
-        res.send(song)
-    }
-
     async lastSongWithUrl(req, res) {
         const song = await lastService.lastSong()
         const url = await GeniusService.getLyricUrl(song.artist.toLowerCase(), song.name.toLowerCase())
